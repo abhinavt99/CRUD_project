@@ -1,0 +1,137 @@
+openapi: 3.0.0
+info:
+  title: Employee API
+  description: An api for Employee details
+  version: 1.0.0
+  contact:
+    email: company@mail.com
+    name: company
+tags:
+     name: Employees
+     description: The Employee managing API
+paths:
+  /employees:
+     get:
+       summary: To get the list of all Employee
+       tags: [Employees]
+       responses:
+         200:
+           description: The list of the employees
+           content:
+             application json:
+               schema:
+                 type: array
+                 items:
+                   $ref: '# components schemas Employee Details'  	 
+				   
+  /employees {id}:
+     get:
+       summary: Get the Employee by id
+       tags: [Employees]
+       parameters:
+         - in: path
+           name: id
+           schema:
+             type: integer
+           required: true
+           description: The Employee id
+       responses:
+         200:
+           description: The Employee description by id
+           contens:
+             application json:
+               schema:
+                 $ref: '# components schemas Employee Details'
+         404:
+           description: The Employee was not found				   
+		   
+  /employees {id}:
+     delete:
+       summary: Remove the employee by id
+       tags: [Employees]
+       parameters:
+         - in: path
+           name: id
+           schema:
+             type: string
+           required: true
+           description: The employee id
+   
+       responses:
+         200:
+           description: The employee was deleted
+         404:
+           description: The employee was not found		   
+   
+  /employees:
+     post:
+       summary: Add new Employee
+       tags: [Employees]
+       requestBody:
+         required: true
+         content:
+           application json:
+             schema:
+               $ref: '# components schemas Employee Details'
+       responses:
+         200:
+           description: Successfully added employee.
+           content:
+             application json:
+               schema:
+                 $ref: '# components schemas Employee Details'
+         500:
+           description: Some server error  
+          
+   /employees:
+     put:
+       summary: Update Employee Details.
+       tags: [Employees]
+       requestBody:
+         required: true
+         content:
+           application json:
+             schema:
+               $ref: '# components schemas Employee Details'
+       responses:
+         200:
+           description: Successfully updated employee.
+           content:
+             application json:
+               schema:
+                 $ref: '# components schemas Employee Details'
+         404:
+          description: The Employee was not found
+         500:
+           description: Some server error   
+     
+components:
+     schemas:
+       Employee Details:
+         type: object
+         required:
+           - EmpID
+           - Namee
+           - EmpCode
+           - Salary
+         properties:
+           EmpID:
+             type: int
+             description: The auto-generated id of the Employee
+           Namee:
+             type: string
+             description: Name of the Employee
+           EmpCode:
+             type: string
+             description: The Eployee Code
+           Salary:
+            type: int
+            description: The salary of the Employee
+        example:
+          EmpID: 9
+          Namee: Jimbro
+          EmpCode: st45
+          Salary: 45000
+ 
+
+
